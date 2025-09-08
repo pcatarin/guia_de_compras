@@ -14,9 +14,8 @@ module.exports = {
     },
 
     // Verifica uma lista pelo ID
-    showListById: (userID, listID) => {
-        const allLists = this.showListsUserById(userID)
-        const list = allLists.find(li => li.id === listID)
+    showListById: (lists, listID) => {
+        const list = lists.find(li => li.id === listID)
 
         return list
     },

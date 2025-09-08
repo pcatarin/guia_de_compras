@@ -14,5 +14,6 @@ router.delete('/users/:id', userController.removeUser)
 //Rotas de Lista
 router.get('/users/:idUser/lists', listController.getListsUser)
 router.post('/users/:idUser/lists', listController.saveNewListUser)
+router.put('/users/:idUser/lists/:idList',listController.updateList)
 
 module.exports = router

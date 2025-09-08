@@ -9,7 +9,7 @@ module.exports =  {
     getListsUser: (req, res) => {
         const { idUser } = req.params
 
-        const verifyUser = userModel.getUserById(idUser)
+        const verifyUser = userModel.getUserById(+idUser)
          
         if (!verifyUser) res.status(404).json({ message: 'User not Found'})
         
@@ -38,18 +38,25 @@ module.exports =  {
     // UPDATE /users/:idUser/lists/:idList
     updateList: (req, res) => {
         const { idUser, idList } = req.params
-        const { name, quantityIten, valueAmount } = req.body
+        const { name, quantityIten, valueAmount, status } = req.body
 
-        const user = userModel.getUserById(idUser)
+        const user = userModel.getUserById(+idUser)
+        console.log(user.lists)
         if (!user) res.status(404).json({ message: "User Not Found"})
 
-        const checkLits = user.lists
+        const allLists = user.lists
+        const verifyList = listModel.showListById(allLists, +idList)
+        if (!verifyList) res.status(404).json({ message: "List not Found"})
 
-        const newDates = {}
-        if (name) newDates.name = name
-        if (quantityIten) newDates.quantityIten = quantityIten
-        if (valueAmount) newDates.valueAmount = valueAmount
+        const updatedValues = {}
+        if (name) updatedValues.name = name
+        if (quantityIten) updatedValues.quantityIten = quantityIten
+        if (valueAmount) updatedValues.valueAmount = valueAmount
+        if (status) updatedValues.status = status
 
+        const updatedList = listModel.editList(verifyList, updatedValues)
+
+        res.status(200).json(updatedList)
 
     }
 
