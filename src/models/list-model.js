@@ -13,6 +13,14 @@ module.exports = {
         return user.lists
     },
 
+    // Verifica uma lista pelo ID
+    showListById: (userID, listID) => {
+        const allLists = this.showListsUserById(userID)
+        const list = allLists.find(li => li.id === listID)
+
+        return list
+    },
+
     // Cria uma nova lista
     saveList: (name) => {
        
@@ -33,19 +41,19 @@ module.exports = {
     },
 
     // Edita uma lista pelo ID
-    editList: (id, newDates) => {
+    editList: (list, newDates) => {
         const { name, itensQuantity, amountValue, status } = newDates
-        const existingList = lists.find(list => list.id === id)
+        
 
-        if (name && typeof name === 'string') existingList.name = name;
+        if (name && typeof name === 'string') list.name = name;
 
-        if (itensQuantity && typeof itensQuantity === 'number') existingList.itensQuantity = itensQuantity;
+        if (itensQuantity && typeof itensQuantity === 'number') list.itensQuantity = itensQuantity;
 
-        if (amountValue && typeof amountValue === 'number') existingList.amountValue = amountValue;
+        if (amountValue && typeof amountValue === 'number') list.amountValue = amountValue;
 
-        if (status && typeof status === 'string') existingList.status = status;
+        if (status && typeof status === 'string') list.status = status;
 
-        return existingList
+        return list
     },
 
     // Remove uma lista pelo ID

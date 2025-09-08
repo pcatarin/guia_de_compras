@@ -33,9 +33,25 @@ module.exports =  {
         const listsUser = listModel.showListsUserById(+idUser)
         
         res.status(201).json(listsUser)
-    } 
+    }, 
 
     // UPDATE /users/:idUser/lists/:idList
+    updateList: (req, res) => {
+        const { idUser, idList } = req.params
+        const { name, quantityIten, valueAmount } = req.body
+
+        const user = userModel.getUserById(idUser)
+        if (!user) res.status(404).json({ message: "User Not Found"})
+
+        const checkLits = user.lists
+
+        const newDates = {}
+        if (name) newDates.name = name
+        if (quantityIten) newDates.quantityIten = quantityIten
+        if (valueAmount) newDates.valueAmount = valueAmount
+
+
+    }
 
     // DELETE /users/:idUser/lists/:idList
 
