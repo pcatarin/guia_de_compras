@@ -1,6 +1,7 @@
 const express = require('express')
 const userController = require('./controllers/user-controller')
 const listController = require('./controllers/list-controller')
+const itensController = require('./controllers/itens-controller')
 
 const router = express.Router()
 
@@ -15,5 +16,8 @@ router.delete('/users/:id', userController.removeUser)
 router.get('/users/:idUser/lists', listController.getListsUser)
 router.post('/users/:idUser/lists', listController.saveNewListUser)
 router.put('/users/:idUser/lists/:idList',listController.updateList)
+
+//Rotas de Itens
+router.get('/users/:idUser/lists/:idList/itens', itensController.getItensList)
 
 module.exports = router
