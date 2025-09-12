@@ -1,8 +1,8 @@
 // As listas serão compostas de:
+// { id, name, itensQuantity, amountValue, status }
 
 const userModel = require("./user-model")
 
-// { id, name, itensQuantity, amountValue, status }
 let lists = []
 let users = userModel.allUsers()
 
@@ -28,10 +28,10 @@ module.exports = {
             name,
             itens: [],
             get itensQuantity () {
-                return this.itens.length
+                return this.itens.reduce((sum, iten) => sum + iten.quantity, 0)
             }, 
             get amountValue() {
-                return this.itens.reduce((sum, item) => sum + item.amountValueItens, 0)
+                return this.itens.reduce((sum, iten) => sum + iten.amountValueItens, 0)
             },
             status: 'pendent'
         }

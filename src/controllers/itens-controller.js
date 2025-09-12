@@ -10,5 +10,16 @@ module.exports = {
         const itens = itenModel.showItensListUser(+idUser, +idList)
 
         res.status(200).json(itens)
+    },
+
+    // POST /users/:idUser/lists/:idList/itens
+    addItenInList: (req, res) => {
+        const { idUser, idList } = req.params
+        const { name, mark, quantity, price } = req.body
+
+        const newIten = itenModel.createItem(name, mark, quantity, price)
+        itenModel.saveItenInList(+idUser, +idList, newIten)
+
+        res.status(201).json(newIten)
     }
 }

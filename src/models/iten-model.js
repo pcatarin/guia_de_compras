@@ -14,8 +14,28 @@ module.exports = {
         return user.lists[list].itens
     },
 
-    saveItem: () => {
+    createItem: (name, mark, quantity, price) => {
+        const newIten = {
+            id: Math.floor(Math.random()*9999), 
+            name,
+            mark,
+            quantity,
+            price,
+            get totalPrice () {
+                return this.quantity * this.price
+            }
+        }
 
+        return newIten
+
+    },
+
+    saveItenInList (idUser, idList, iten) {
+        const user = userModel.getUserById(idUser)
+        const list = user.lists.findIndex(li => li.id ===idList)
+
+        user.lists[list].itens.push(iten)
+        return iten
     },
 
     editItem: () => {

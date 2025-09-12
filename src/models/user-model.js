@@ -12,19 +12,20 @@ let users = [
                 itens: [
                    { 
                         id: 1, 
-                        nameIten: 'arroz', 
-                        quantityIten: 2, 
-                        valueIten: 10.90, 
-                        get amountValueItens () {
-                           return this.quantityIten * this.valueIten
+                        name: 'arroz', 
+                        mark: 'tarumã',
+                        quantity: 2, 
+                        price: 10.00, 
+                        get totalPrice () {
+                           return this.quantity * this.price
                         } 
                     }
                 ], 
                 get itensQuantity () {
-                    return this.itens.length
+                    return this.itens.reduce((sum, iten) => sum + iten.quantity, 0)
                 }, 
                 get amountValue() {
-                    return this.itens.reduce((sum, item) => sum + item.amountValueItens, 0)
+                    return this.itens.reduce((sum, item) => sum + item.totalPrice, 0)
                 }, 
                 status: 'pendent'
             }
