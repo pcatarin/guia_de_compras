@@ -38,8 +38,15 @@ module.exports = {
         return iten
     },
 
-    editItem: () => {
+    editItem: (iten, updatedValues) => {
+        const { name, mark, quantity, price } = updatedValues
 
+        if (name && typeof name === 'string') iten.name = name;
+        if (mark && typeof mark === 'string') iten.mark = mark;
+        if (quantity && typeof quantity === 'number' || quantity === 0) iten.quantity = quantity;
+        if (price && typeof price === 'number' || price === 0) iten.price = price; 
+
+        return iten
     },
 
     removeItem: () => {

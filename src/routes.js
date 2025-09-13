@@ -20,5 +20,6 @@ router.put('/users/:idUser/lists/:idList',listController.updateList)
 //Rotas de Itens
 router.get('/users/:idUser/lists/:idList/itens', itensController.getItensList)
 router.post('/users/:idUser/lists/:idList/itens', itensController.addItenInList)
+router.put('/users/:idUser/lists/:idList/itens/:idIten', itensController.updateIten)
 
 module.exports = router

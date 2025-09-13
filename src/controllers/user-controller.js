@@ -62,6 +62,6 @@ module.exports = {
             return res.status(404).json({ message: 'User not found!' })
         }
         userModel.deleteUser(+id)
-        res.status(200).json(userExisting)
+        res.status(200).json({ message: `Usuário ${userExisting.nickName} removido com sucesso!`})
     }
 }
