@@ -16,6 +16,7 @@ router.delete('/users/:id', userController.removeUser)
 router.get('/users/:idUser/lists', listController.getListsUser)
 router.post('/users/:idUser/lists', listController.saveNewListUser)
 router.put('/users/:idUser/lists/:idList',listController.updateList)
+router.delete('/users/:idUser/lists/:idList',listController.deleteList)
 
 //Rotas de Itens
 router.get('/users/:idUser/lists/:idList/itens', itensController.getItensList)

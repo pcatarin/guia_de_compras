@@ -58,8 +58,19 @@ module.exports =  {
 
         res.status(200).json(updatedList)
 
-    }
+    },
 
     // DELETE /users/:idUser/lists/:idList
+    deleteList: (req, res) => {
+        const { idUser, idList } = req.params
+
+        const user = userModel.getUserById(+idUser)
+        //const list = user.lists.find(li => li.id === +idList)
+        
+        const deletedList = listModel.removeList(user,+idList)
+        
+        res.status(200).json(deletedList)
+
+    }
 
 }

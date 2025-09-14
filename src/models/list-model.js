@@ -56,8 +56,8 @@ module.exports = {
     },
 
     // Remove uma lista pelo ID
-    removeList: (id) => {
-        lists = lists.filter(lt => lt.id !== id)
+    removeList: (user,idList) => {
+        return user.lists = lists.filter(li => li.id !== idList)
     }
 
 }
