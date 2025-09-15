@@ -14,7 +14,7 @@ module.exports = {
         return user.lists[list].itens
     },
 
-    createItem: (name, mark, quantity, price) => {
+    createItem: (list, name, mark, quantity, price) => {
         const newIten = {
             id: Math.floor(Math.random()*9999), 
             name,
@@ -23,8 +23,9 @@ module.exports = {
             price,
             get totalPrice () {
                 return this.quantity * this.price
-            }
+            } 
         }
+        list.itens.push(newIten)
 
         return newIten
 
@@ -49,7 +50,10 @@ module.exports = {
         return iten
     },
 
-    removeItem: () => {
-        
+    removeItem: (idUser,listIndex, idIten) => {
+        const user = userModel.getUserById(idUser)
+        //const list = user.lists[listIndex]
+
+        return user.lists[listIndex].itens = user.lists[listIndex].itens.filter(it => it.id !== idIten)
     }
 }

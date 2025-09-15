@@ -19,8 +19,14 @@ module.exports = {
         const { idUser, idList } = req.params
         const { name, mark, quantity, price } = req.body
 
-        const newIten = itenModel.createItem(name, mark, quantity, price)
-        itenModel.saveItenInList(+idUser, +idList, newIten)
+        const user = userModel.getUserById(+idUser)
+        if(!user) res.status(404).json({ message: 'User not found'})
+        const lists = user.lists
+        if(!lists) res.status(404).json({ message: 'List not found'})
+        const list = listModel.showListById(lists, +idList)
+
+        const newIten = itenModel.createItem(list,name, mark, quantity, price)
+        //itenModel.saveItenInList(+idUser, +idList, newIten)
 
         res.status(201).json(newIten)
     },
@@ -50,5 +56,20 @@ module.exports = {
         const updatedItens = itenModel.editItem(iten, updateIten)
 
         res.status(200).json(updatedItens) 
+    },
+
+    // DELETE /users/:idUser/lists/:idList/itens/:idIten
+    deleteIten: (req, res) => {
+        const { idUser, idList, idIten } = req.params
+
+        const user = userModel.getUserById(+idUser)
+        if (!user) res.status(404).json({ message: 'User Not Found!'})
+
+        const listIndex = user.lists.findIndex(li => li.id === +idList)
+        if (listIndex === -1) res.status(404).json({ message: 'List not Found!'})
+
+        itenModel.removeItem(+idUser,listIndex, +idIten)
+
+        res.status(200).json(user.lists[listIndex])
     }
 }

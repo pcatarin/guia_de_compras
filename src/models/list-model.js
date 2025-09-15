@@ -31,7 +31,7 @@ module.exports = {
                 return this.itens.reduce((sum, iten) => sum + iten.quantity, 0)
             }, 
             get amountValue() {
-                return this.itens.reduce((sum, iten) => sum + iten.amountValueItens, 0)
+                return this.itens.reduce((sum, iten) => sum + iten.totalPrice, 0)
             },
             status: 'pendent'
         }

@@ -22,5 +22,6 @@ router.delete('/users/:idUser/lists/:idList',listController.deleteList)
 router.get('/users/:idUser/lists/:idList/itens', itensController.getItensList)
 router.post('/users/:idUser/lists/:idList/itens', itensController.addItenInList)
 router.put('/users/:idUser/lists/:idList/itens/:idIten', itensController.updateIten)
+router.delete('/users/:idUser/lists/:idList/itens/:idIten', itensController.deleteIten)
 
 module.exports = router
