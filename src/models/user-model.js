@@ -5,6 +5,7 @@ let users = [
         id: 1,
         name: 'Paulo Catarin',
         nickName: 'pcatarin',
+        password: '123456',
         lists: [
             {
                 id: 1,
@@ -39,12 +40,13 @@ module.exports = {
     allUsers: () =>  users,
 
     // Cria Novo Usuário
-    save: (name, nickName, lists = []) => {
+    save: (name, nickName, password, lists = []) => {
         
         const newUser = {
             id: Math.floor(Math.random()*9999),
             name,
             nickName,
+            password,
             lists: lists
         }
 
