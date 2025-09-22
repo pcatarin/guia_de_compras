@@ -6,6 +6,7 @@ let users = [
         name: 'Paulo Catarin',
         nickName: 'pcatarin',
         password: '123456',
+        role: 'admin',
         lists: [
             {
                 id: 1,
@@ -28,7 +29,15 @@ let users = [
                 get amountValue() {
                     return this.itens.reduce((sum, item) => sum + item.totalPrice, 0)
                 }, 
-                status: 'pendent'
+                get status ()  { 
+                const amountValue = this.amountValue
+                const totalItensValue = this.itens.filter(it => it.price > 0)
+                
+                if (totalItensValue.length === this.itens.length) return this.status = "finished"
+                if (amountValue === 0) return this.status = "pendent"   
+                if (amountValue > 0) return this.status = "current"
+
+                }
             }
         ]
     }
@@ -47,10 +56,12 @@ module.exports = {
             name,
             nickName,
             password,
+            role: 'standard',
             lists: lists
         }
 
         users.push(newUser)
+        return newUser
     },
 
     // Obtem Usuário pelo ID
@@ -58,6 +69,16 @@ module.exports = {
         const userId = users.find(user => user.id === id)
 
         return userId
+    },
+
+    // Obtem usuário pelo nickName
+    getUserByNickName: (nickName) => {
+        const users = this.allUsers()
+
+        const checkNickName = users.find(us => us.nickName === nickName)
+        if (!checkNickName) return null
+
+        return checkNickName
     },
 
     // Atualiza Usuário

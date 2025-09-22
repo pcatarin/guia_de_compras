@@ -24,6 +24,8 @@ module.exports = {
         const lists = user.lists
         if(!lists) res.status(404).json({ message: 'List not found'})
         const list = listModel.showListById(lists, +idList)
+        if (!price) price = 0
+        if (!quantity) quantity = 0 
 
         const newIten = itenModel.createItem(list,name, mark, quantity, price)
         //itenModel.saveItenInList(+idUser, +idList, newIten)

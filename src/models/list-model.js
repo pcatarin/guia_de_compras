@@ -33,10 +33,20 @@ module.exports = {
             get amountValue() {
                 return this.itens.reduce((sum, iten) => sum + iten.totalPrice, 0)
             },
-            status: 'pendent'
+            get status ()  { 
+                const amountValue = this.amountValue
+                const totalItensValue = this.itens.filter(it => it.price > 0)
+                
+                if (amountValue === 0) return this.status = "pendent"   
+                if (amountValue > 0) return this.status = "current"
+                if (totalItensValue.length === this.itens.length) return this.status = "finished"
+
+                
+            }
         }
-        return newList
-        
+
+    return newList
+
     },
 
     // Edita uma lista pelo ID
