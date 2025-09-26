@@ -1,5 +1,6 @@
 const userModel = require("../models/user-model")
-
+const token = require('jsonwebtoken')
+const secrets = require("../config/enviroment")
 
 module.exports = {
     register: (req, res) => {
@@ -18,11 +19,20 @@ module.exports = {
 
     login: (req, res) => {
         const { nickName, password } = req.body
-
+        
         if (typeof nickName !== 'string' || typeof password !== 'string') return res.status(400).json({ message: "Invalid Fields!"})
 
-        
+        const allUsers = userModel.allUsers()
+        const loginUser = allUsers.find(us => us.nickName === nickName)
 
+        if (!loginUser || password !== loginUser.password) return res.status(400).json({ message: 'Nickname or Password inválid!'})
+        
+        const payLoad = { name: loginUser.name, nickName: loginUser.nickName }
+        const tokenAuth = token.sign(payLoad, secrets.SECRET_KEY, { expiresIn: '2h' })
+        const authHeader = req.headers
+
+        console.log(authHeader)
+        res.json({ tokenAuth })
     }
 
 }

@@ -17,14 +17,14 @@ module.exports = {
     // POST /users/:idUser/lists/:idList/itens
     addItenInList: (req, res) => {
         const { idUser, idList } = req.params
-        const { name, mark, quantity, price } = req.body
+        let { name, mark, quantity, price } = req.body
 
         const user = userModel.getUserById(+idUser)
         if(!user) res.status(404).json({ message: 'User not found'})
         const lists = user.lists
         if(!lists) res.status(404).json({ message: 'List not found'})
         const list = listModel.showListById(lists, +idList)
-        if (!price) price = 0
+        if (!price || price === 0) price = 0
         if (!quantity) quantity = 0 
 
         const newIten = itenModel.createItem(list,name, mark, quantity, price)

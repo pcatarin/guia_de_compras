@@ -37,9 +37,9 @@ module.exports = {
                 const amountValue = this.amountValue
                 const totalItensValue = this.itens.filter(it => it.price > 0)
                 
-                if (amountValue === 0) return this.status = "pendent"   
-                if (amountValue > 0) return this.status = "current"
                 if (totalItensValue.length === this.itens.length) return this.status = "finished"
+                if (amountValue > 0) return this.status = "current"
+                if (amountValue === 0) return this.status = "pendent"   
 
                 
             }

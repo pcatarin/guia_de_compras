@@ -2,6 +2,7 @@ const express = require('express')
 const userController = require('./controllers/user-controller')
 const listController = require('./controllers/list-controller')
 const itensController = require('./controllers/itens-controller')
+const authController = require('./controllers/auth-controller')
 
 const router = express.Router()
 
@@ -11,6 +12,9 @@ router.post('/users', userController.newUser)
 router.get('/users/id',userController.checkUserById)
 router.put('/users/:id', userController.editUser)
 router.delete('/users/:id', userController.removeUser)
+
+//Rota para login
+router.post('/users/login', authController.login)
 
 //Rotas de Lista
 router.get('/users/:idUser/lists', listController.getListsUser)

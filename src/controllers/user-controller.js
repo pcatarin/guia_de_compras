@@ -5,6 +5,8 @@ module.exports = {
     // GET /users
     viewUsers: (req, res) => {
         const users = userModel.allUsers()
+        //const authHeader = req.headers.authorization
+        //console.log(authHeader)
         res.status(200).json({ users })
     },
 
@@ -24,13 +26,18 @@ module.exports = {
     // POST /users
     newUser: (req, res) => {
         const { name , nickName } = req.body
-        if (typeof name !== 'string' || !name || name === '') return res.status(400).json({ message: 'Precisa de um Nome...'})
+        const users = userModel.allUsers()
         
+        if (typeof name !== 'string' || !name || name === '') return res.status(400).json({ message: 'Precisa de um Nome...'})
+            
         if (typeof nickName !== 'string' || !nickName || nickName === '') return res.status(400).json({ message: 'Precisa de um Nickname...'})
-       
+                
+        const existingUser = users.find(us => us.nickName === nickName)
+        if (existingUser) return res.status(400).json({ message: 'Nickname its already in use!'})
+
         userModel.save(name,nickName)
 
-        res.status(201).json({ message: 'Create'})
+        res.status(201).json({ message: `Usuário ${nickName} adicionado com sucesso!`})
     },
 
     // PUT /users/:id
@@ -61,7 +68,7 @@ module.exports = {
         if (!userExisting) {
             return res.status(404).json({ message: 'User not found!' })
         }
-        userModel.deleteUser(+id)
+        const users = userModel.deleteUser(+id)
         res.status(200).json({ message: `Usuário ${userExisting.nickName} removido com sucesso!`})
     }
 }

@@ -1,6 +1,6 @@
 // Os users não podem ter acesso a outros usuários, e somente ter acesso ao seu próprio perfil
 
-let users = [
+let users = [ 
     {
         id: 1,
         name: 'Paulo Catarin',
@@ -94,13 +94,6 @@ module.exports = {
 
     // Deleta usuário pelo ID
     deleteUser: (id) => {
-        /* Usando Splice
-        const userId = users.findIndex(iten => iten.id === id)
-        console.log(userId)
-
-        const useDelete = users.splice(userId, 1)
-        return useDelete[0]
-        */
        // Usando Filter
        return users =  users.filter(iten => iten.id !== id)
     }
