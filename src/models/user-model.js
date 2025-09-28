@@ -30,12 +30,18 @@ let users = [
                     return this.itens.reduce((sum, item) => sum + item.totalPrice, 0)
                 }, 
                 get status ()  { 
-                const amountValue = this.amountValue
-                const totalItensValue = this.itens.filter(it => it.price > 0)
-                
-                if (totalItensValue.length === this.itens.length) return this.status = "finished"
-                if (amountValue === 0) return this.status = "pendent"   
-                if (amountValue > 0) return this.status = "current"
+                    const amountValue = this.amountValue
+                    const totalItensValue = this.itens.filter(it => it.price > 0)
+                    const totalItensQuantity = this.itens.filter(it => it.quantity > 0)
+
+                    if (this.itensQuantity && this.amountValue === 0)
+                    return this.status = "pendent";
+
+                    if (totalItensValue.length === this.itens.length && totalItensQuantity.length === this.itens.length) return this.status = "finished";
+
+                    if (amountValue === 0) return this.status = "pendent";
+
+                    if (amountValue > 0) return this.status = "current";
 
                 }
             }

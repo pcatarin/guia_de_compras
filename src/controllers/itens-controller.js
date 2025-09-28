@@ -70,7 +70,8 @@ module.exports = {
         const listIndex = user.lists.findIndex(li => li.id === +idList)
         if (listIndex === -1) res.status(404).json({ message: 'List not Found!'})
 
-        itenModel.removeItem(+idUser,listIndex, +idIten)
+        
+        itenModel.removeItem(+idUser, +idList, +idIten)
 
         res.status(200).json(user.lists[listIndex])
     }

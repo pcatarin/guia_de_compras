@@ -50,9 +50,9 @@ module.exports = {
         return iten
     },
 
-    removeItem: (idUser,listIndex, idIten) => {
+    removeItem: (idUser, idList, idIten) => {
         const user = userModel.getUserById(idUser)
-        //const list = user.lists[listIndex]
+        const listIndex = user.lists.findIndex(li => li.id === idList)
 
         return user.lists[listIndex].itens = user.lists[listIndex].itens.filter(it => it.id !== idIten)
     }
